@@ -1,31 +1,71 @@
-import React, { Component } from "react";
+/* global chrome */
 
-import AddItemButton from "../components/AddItemButton";
-import DataDisplay from "../components/DataDisplay";
-import Recommended from "../components/Recommended";
-import SearchBar from "../components/SearchBar";
+import React, { Component } from "react";
+import { connect } from "react-redux";
+
+// Functions
+import { decrypt } from "../functions/encryption";
+import { formatData } from "../functions/format";
+import { goTo, saveItems } from "../state/actions";
+
+const mapStateToProps = (state) => {
+  return {
+    account: state.account,
+    password: state.password,
+    contract: state.contract,
+  };
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    goTo: (page) => dispatch(goTo(page)),
+    saveItems: (items) => dispatch(saveItems(items)),
+    changeItem: (item) => dispatch(changeItem(item)),
+  };
+};
 
 class Unlocked extends Component {
-  constructor(props) {
-    super(props);
+  // Testing
+  deleteData() {
+    chrome.storage.local.set({
+      account: "",
+      password: "",
+      lastLogin: "",
+      rememberMins: 0,
+    });
+  }
+
+  async componentDidMount() {
+    if (!this.props.account || !this.props.password || !this.props.contract) {
+      this.props.goTo("login");
+    } else {
+      let numItems = await this.props.contract.methods
+        .numObjects(this.props.account)
+        .call();
+
+      let usersData = await formatData(
+        numItems,
+        this.props.contract.methods,
+        this.props.account
+      );
+
+      let dataToSave = decrypt(usersData, this.props.password);
+
+      this.props.saveItems(dataToSave);
+      this.props.changeItem(dataToSave[0]);
+    }
   }
 
   render() {
     return (
-      <div className="popup">
-        <div className="unlocked-div">
-          <div className="top-items">
-            <SearchBar />
-            <AddItemButton />
-          </div>
-          <div className="content">
-            <Recommended />
-            <DataDisplay />
-          </div>
-        </div>
+      <div>
+        <button className="p-5 bg-green-200" onClick={this.deleteData}>
+          DELETE MY DATA
+        </button>
+        <p>{this.props.account}</p>
       </div>
     );
   }
 }
 
-export default Unlocked;
+export default connect(mapStateToProps, mapDispatchToProps)(Unlocked);

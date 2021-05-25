@@ -1,6 +1,6 @@
-export const TOKEN_ADDRESS = "0xd2f132a59A0A11f4d63dB793339FA6e69826E05c";
+export const CONTRACT_ADDRESS = "0x9728595a45EA76d470A022A70cA16Af118Af2179";
 
-export const TOKEN_ABI = [
+export const CONTRACT_ABI = [
   {
     inputs: [
       {
@@ -23,7 +23,7 @@ export const TOKEN_ABI = [
       },
       {
         internalType: "string",
-        name: "_data",
+        name: "_hash",
         type: "string",
       },
     ],
@@ -40,8 +40,13 @@ export const TOKEN_ABI = [
         type: "uint256",
       },
       {
+        internalType: "uint256",
+        name: "_id",
+        type: "uint256",
+      },
+      {
         internalType: "string",
-        name: "_data",
+        name: "_hash",
         type: "string",
       },
     ],
@@ -104,13 +109,8 @@ export const TOKEN_ABI = [
       },
       {
         internalType: "string",
-        name: "data",
+        name: "hash",
         type: "string",
-      },
-      {
-        internalType: "bool",
-        name: "displayed",
-        type: "bool",
       },
     ],
     stateMutability: "view",

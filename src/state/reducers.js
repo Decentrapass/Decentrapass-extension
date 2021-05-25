@@ -1,60 +1,59 @@
 import {
-  ADD_ITEM,
-  CHANGE_ACCOUNT,
   CHANGE_ITEM,
-  DATA_RETRIEVE,
-  FILTER_ITEMS,
-  PAGE_CHANGE,
+  CHANGE_PAGE,
+  SAVE_ACCOUNT,
+  SAVE_CONTRACT,
+  SAVE_ITEMS,
+  SAVE_PASS,
   SAVE_WEB3,
 } from "./constants";
 
 const initialState = {
-  page: "locked", // A self-made router
-  addingItem: "", // To display the correct interface when adding an item
-  items: [], // Items received from backend
-  displayedItems: [], // Items displayed (for searching)
-  currentItem: null, // To chose what item to display
-  web3: null, // Saves the contract access point,
+  page: "register", // Current visible page
+  web3: null, // Saves the web3 access point,
+  contract: null, // Saves the contract access point,
   account: "", // Saves the users address
+  password: "", // Saves the users cyphered password
+  items: [],
+  displayedItem: null,
 };
 
 const rootReducer = (state = initialState, action) => {
   switch (action.type) {
-    case DATA_RETRIEVE: // User successfully logged in and we queried their data
-      return {
-        ...state,
-        items: action.payload,
-        displayedItems: action.payload,
-      };
-    case CHANGE_ITEM: // User clicked on object and we display that object's data
-      return {
-        ...state,
-        currentItem: action.payload,
-      };
-    case PAGE_CHANGE: // Redirecting a user
+    case CHANGE_PAGE: // Redirect
       return {
         ...state,
         page: action.payload,
       };
-    case ADD_ITEM: // Change item creation interface
-      return {
-        ...state,
-        addingItem: action.payload,
-      };
-    case FILTER_ITEMS: // User searched
-      return {
-        ...state,
-        displayedItems: action.payload,
-      };
-    case SAVE_WEB3: // User searched
+    case SAVE_WEB3: // Web3 endpoint
       return {
         ...state,
         web3: action.payload,
       };
-    case CHANGE_ACCOUNT: // User searched
+    case SAVE_CONTRACT: // Contract interface
+      return {
+        ...state,
+        contract: action.payload,
+      };
+    case SAVE_PASS: // User's password
+      return {
+        ...state,
+        password: action.payload,
+      };
+    case SAVE_ACCOUNT: // User's account
       return {
         ...state,
         account: action.payload,
+      };
+    case SAVE_ITEMS:
+      return {
+        ...state,
+        items: action.payload,
+      };
+    case CHANGE_ITEM:
+      return {
+        ...state,
+        displayedItem: action.payload,
       };
     default:
       return state;

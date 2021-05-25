@@ -1,9 +1,9 @@
 {
-  "short_name": "NoPass",
-  "name": "NoPass Password Manager",
+  "short_name": "Decentrapass",
+  "name": "Decentrapass Extension",
   "version": "0.1.0",
   "manifest_version": 2,
-  "description": "An open-source, free and secure password manager",
+  "description": "An open-source decentralized password manager",
   "permissions": ["storage", "activeTab"],
   "content_scripts": [
     {
@@ -14,7 +14,7 @@
   ],
   "browser_action": {
     "default_popup": "./popup.html",
-    "default_icon": "./img/transparent-logo.png"
+    "default_icon": "./img/android-chrome-512x512.png"
   },
-  "web_accessible_resources": ["img/transparent-logo.png"]
+  "web_accessible_resources": ["img/android-chrome-512x512.png"]
 }
