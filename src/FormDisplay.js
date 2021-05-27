@@ -41,15 +41,11 @@ export default class FormDisplay extends Component {
         window.pageXOffset || document.documentElement.scrollLeft;
       let scrollTop = window.pageYOffset || document.documentElement.scrollTop;
 
-      let height = rect.height * 0.75;
+      let height = rect.height * 0.5;
       let properHeight = height > 25 ? height : 25;
       let width = rect.width - properHeight;
 
       let mt = (rect.height - properHeight) / 2;
-
-      console.log(rect.height, properHeight);
-      console.log(rectTop, scrollTop, mt);
-      console.log();
 
       this.setState({
         rendered: (
