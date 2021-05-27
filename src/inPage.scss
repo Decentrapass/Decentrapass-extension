@@ -1,0 +1,13 @@
+$green-500: #10b981;
+
+#insertion-point {
+  #insideField {
+    background: $green-500;
+    border-radius: 100%;
+    position: absolute;
+    z-index: 50;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+}

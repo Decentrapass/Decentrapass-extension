@@ -3,9 +3,10 @@
 import { Component } from "react";
 import { connect } from "react-redux";
 
-import Register from "./pages/Register";
-import Login from "./pages/Login";
-import Unlocked from "./pages/Unlocked";
+import Register from "./pages/Register/Register";
+import Login from "./pages/Login/Login";
+import Unlocked from "./pages/Unlocked/Unlocked";
+import Settings from "./pages/Settings/Settings";
 
 const mapStateToProps = (state) => {
   return {
@@ -19,6 +20,8 @@ export class Popup extends Component {
   }
 
   getPage(page) {
+    console.log(page);
+
     switch (page) {
       case "register":
         return <Register />;
@@ -26,6 +29,8 @@ export class Popup extends Component {
         return <Login />;
       case "unlocked":
         return <Unlocked />;
+      case "settings":
+        return <Settings />;
       default:
         return <>Error</>;
     }

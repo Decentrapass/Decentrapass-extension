@@ -1,6 +1,7 @@
 import {
   CHANGE_ITEM,
   CHANGE_PAGE,
+  FILTER_ITEMS,
   SAVE_ACCOUNT,
   SAVE_CONTRACT,
   SAVE_ITEMS,
@@ -14,8 +15,9 @@ const initialState = {
   contract: null, // Saves the contract access point,
   account: "", // Saves the users address
   password: "", // Saves the users cyphered password
-  items: [],
-  displayedItem: null,
+  items: [], // All user's items
+  displayedItems: null, // Filtered items
+  currentItem: null, // Items displayed (for searching)
 };
 
 const rootReducer = (state = initialState, action) => {
@@ -49,11 +51,17 @@ const rootReducer = (state = initialState, action) => {
       return {
         ...state,
         items: action.payload,
+        displayedItems: action.payload,
       };
     case CHANGE_ITEM:
       return {
         ...state,
-        displayedItem: action.payload,
+        currentItem: action.payload,
+      };
+    case FILTER_ITEMS:
+      return {
+        ...state,
+        displayedItems: action.payload,
       };
     default:
       return state;

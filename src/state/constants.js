@@ -9,3 +9,4 @@ export const SAVE_ACCOUNT = "SAVE_ACCOUNT";
 // Display
 export const SAVE_ITEMS = "SAVE_ITEMS";
 export const CHANGE_ITEM = "CHANGE_ITEM";
+export const FILTER_ITEMS = "FILTER_ITEMS";

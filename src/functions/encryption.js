@@ -26,13 +26,6 @@ export function decrypt(data, pass) {
     for (var key in data[i]) {
       // Avoids encrypting data like dates or pk
       if (data[i][key] !== "" && !DO_NOT_DECRYPT.includes(key)) {
-        console.log(key);
-        console.log(data[i][key]);
-        console.log(CryptoJS.AES.decrypt(data[i][key], pass));
-        console.log(
-          CryptoJS.AES.decrypt(data[i][key], pass).toString(CryptoJS.enc.Utf8)
-        );
-
         data[i][key] = CryptoJS.AES.decrypt(data[i][key], pass).toString(
           CryptoJS.enc.Utf8
         );

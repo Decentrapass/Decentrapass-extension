@@ -1,11 +1,11 @@
 /* global chrome */
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { hash } from "../functions/encryption";
+import { hash } from "../../functions/encryption";
 
 // Web3
 import Web3 from "web3";
-import { CONTRACT_ABI, CONTRACT_ADDRESS } from "../constants/web3";
+import { CONTRACT_ABI, CONTRACT_ADDRESS } from "../../constants/web3";
 
 // Functions
 import {
@@ -14,11 +14,11 @@ import {
   saveContract,
   savePassword,
   saveWeb3,
-} from "../state/actions";
-import { formatAccount } from "../functions/format";
+} from "../../state/actions";
+import { formatAccount } from "../../functions/format";
 
 // Components
-import Jazzicon from "../components/Jazzicon";
+import Jazzicon from "../../components/Jazzicon";
 
 const mapDispatchToProps = (dispatch) => {
   return {
@@ -43,15 +43,18 @@ class Login extends Component {
 
     this.saveToState = this.saveToState.bind(this);
     this.handleLogin = this.handleLogin.bind(this);
+    this.deleteData = this.deleteData.bind(this);
   }
 
-  // Testing
+  // Changing acc / errors
   deleteData() {
     chrome.storage.local.set({
       account: "",
       password: "",
       lastLogin: "",
     });
+
+    this.props.goTo("register");
   }
 
   async saveToState(password, account) {
@@ -70,6 +73,11 @@ class Login extends Component {
     this.props.saveAccount(account);
 
     this.props.goTo("unlocked");
+
+    chrome.storage.local.set({
+      lastLogin: new Date().toString(),
+      password: password,
+    });
   }
 
   async handleLogin(e) {
@@ -110,7 +118,8 @@ class Login extends Component {
         if (
           items.account.length > 0 &&
           items.password.length > 0 &&
-          items.lastLogin.length > 0
+          items.lastLogin.length > 0 &&
+          items.rememberMins
         ) {
           let diff = (new Date() - new Date(items.lastLogin)) / 1000 / 60;
 
@@ -124,6 +133,12 @@ class Login extends Component {
             });
           }
         } else if (!items.account || items.account.length < 1) {
+          console.log(
+            items.account,
+            items.password,
+            items.lastLogin,
+            items.rememberMins
+          );
           this.deleteData();
           this.props.goTo("register");
         }
@@ -133,23 +148,28 @@ class Login extends Component {
 
   render() {
     return (
-      <div className="w-full h-full flex flex-col items-center justify-center">
-        {/* <button className="p-5 bg-green-200" onClick={this.deleteData}>
-          DELETE MY DATA
-        </button> */}
+      <div className="w-full h-full flex flex-col items-center justify-center bg-gray-900">
         <form
           onSubmit={this.handleLogin}
           className="h-full w-5/6 flex flex-col items-center justify-center"
         >
-          <div className="flex h-16 w-full border-2 border-solid bg-white border-gray-300 text-xl lg:text-2xl px-5 py-3 text-gray-700 mb-3 items-center">
-            <Jazzicon account={this.state.account} addedClasses="mr-2" />
-            {formatAccount(this.state.account, 5)}
+          <div className="flex h-16 w-full border-2 border-solid bg-gray-800 border-gray-700 text-xl px-5 py-3 text-gray-400 mb-3 items-center justify-between">
+            <div className="flex items-center">
+              <Jazzicon account={this.state.account} addedClasses="mr-2" />
+              {formatAccount(this.state.account, 5)}
+            </div>
+            <div
+              className="cursor-pointer border text-green-500 border-green-500 rounded-full text-base hover:text-green-800 hover:border-green-800 px-2"
+              onClick={this.deleteData}
+            >
+              change
+            </div>
           </div>
           <div className="flex h-16 w-full items-center justify-center">
             <input
               type="password"
-              className="w-full h-full border-2 border-solid bg-white border-gray-300 text-xl lg:text-2xl px-5 py-3 focus:outline-none focus:border-green-500 rounded-0 lg:rounded-l placeholder-gray-300"
-              placeholder="Enter your master password..."
+              className="w-full h-full border-2 border-solid bg-gray-800 border-gray-700 text-xl px-5 focus:border-green-500 focus:outline-none rounded-0 placeholder-gray-400 font-sans text-gray-100"
+              placeholder="Enter your password..."
               onChange={(e) => {
                 this.setState({ password: e.target.value, wrongPass: false });
               }}
@@ -157,7 +177,7 @@ class Login extends Component {
             />
             <button
               type="submit"
-              className="bg-green-500 border-green-500 py-3 px-4 lg:rounded-r focus:outline-none flex items-center justify-center h-full"
+              className="bg-green-500 border-green-500 py-3 px-4 ocus:outline-none flex items-center justify-center h-full"
             >
               <img
                 src={chrome.runtime.getURL("img/logo-nobg.png")}

@@ -6,6 +6,7 @@ import {
   SAVE_ITEMS,
   SAVE_PASS,
   SAVE_WEB3,
+  FILTER_ITEMS,
 } from "./constants";
 
 // Changes the current visible page
@@ -43,4 +44,9 @@ export const saveItems = (payload) => {
 // Action to save user's decripted item
 export const changeItem = (payload) => {
   return { type: CHANGE_ITEM, payload };
+};
+
+// Action to save user's decripted item
+export const filterItems = (payload) => {
+  return { type: FILTER_ITEMS, payload };
 };

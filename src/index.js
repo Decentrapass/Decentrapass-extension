@@ -19,13 +19,8 @@ document.body.parentNode.insertBefore(insertionPoint, document.body);
 
 // The next portion decides if either the in-page element is rendered
 // or the popup is rendered
-!popupRoot &&
-  ReactDOM.render(
-    <Provider store={store}>
-      <FormDisplay />
-    </Provider>,
-    insertionPoint
-  );
+console.log("Sending msg to render me");
+!popupRoot && ReactDOM.render(<FormDisplay />, insertionPoint);
 
 popupRoot &&
   ReactDOM.render(

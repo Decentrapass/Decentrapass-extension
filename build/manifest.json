@@ -5,6 +5,7 @@
   "manifest_version": 2,
   "description": "An open-source decentralized password manager",
   "permissions": ["storage", "activeTab"],
+  "homepage_url": "http://decentrapass.org",
   "content_scripts": [
     {
       "matches": ["<all_urls>"],
@@ -16,5 +17,15 @@
     "default_popup": "./popup.html",
     "default_icon": "./img/android-chrome-512x512.png"
   },
-  "web_accessible_resources": ["img/android-chrome-512x512.png"]
+  "web_accessible_resources": ["img/android-chrome-512x512.png"],
+  "commands": {
+    "_execute_browser_action": {
+      "suggested_key": {
+        "default": "Ctrl+Shift+X",
+        "windows": "Ctrl+Shift+X",
+        "mac": "Ctrl+Shift+X"
+      },
+      "description": "Activate the extension"
+    }
+  }
 }

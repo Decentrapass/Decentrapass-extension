@@ -1,3 +1,21 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+#popup-root {
+  .no-pass-hidden {
+    -webkit-text-security: disc;
+  }
+
+  .data-field:hover .tools {
+    display: flex;
+  }
+
+  .passwordField {
+    -webkit-text-security: disc;
+  }
+
+  .passwordField:focus {
+    -webkit-text-security: none;
+  }
+}
