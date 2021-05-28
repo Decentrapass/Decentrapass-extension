@@ -114,7 +114,7 @@ class Login extends Component {
       async function (items) {
         this.setState({ account: items.account });
 
-        // If we have their account and password and lastLogin < 1h -> unlocked
+        // If we have their account and password and lastLogin < saved time -> unlocked
         if (
           items.account.length > 0 &&
           items.password.length > 0 &&
@@ -133,12 +133,6 @@ class Login extends Component {
             });
           }
         } else if (!items.account || items.account.length < 1) {
-          console.log(
-            items.account,
-            items.password,
-            items.lastLogin,
-            items.rememberMins
-          );
           this.deleteData();
           this.props.goTo("register");
         }
