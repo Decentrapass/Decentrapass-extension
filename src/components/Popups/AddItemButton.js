@@ -64,8 +64,7 @@ class AddItemButton extends Component {
 
     chrome.tabs.create({
       url:
-        "https://decentrapass.github.io/Decentrapass-v1-Interface/#/unlocked/?action=add?type=" +
-        itemType,
+        "https://app.decentrapass.org/#/unlocked/?action=add?type=" + itemType,
     });
   };
 

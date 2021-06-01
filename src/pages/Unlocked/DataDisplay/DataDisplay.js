@@ -39,7 +39,7 @@ class DataDisplay extends Component {
   editHandler() {
     chrome.tabs.create({
       url:
-        "https://decentrapass.github.io/Decentrapass-v1-Interface/#/unlocked/?action=edit?id=" +
+        "https://app.decentrapass.org/#/unlocked/?action=edit?id=" +
         this.props.currentItem.id,
     });
   }
@@ -47,7 +47,7 @@ class DataDisplay extends Component {
   deleteHandler() {
     chrome.tabs.create({
       url:
-        "https://decentrapass.github.io/Decentrapass-v1-Interface/#/unlocked/?action=delete?id=" +
+        "https://app.decentrapass.org/#/unlocked/?action=delete?id=" +
         this.props.currentItem.id,
     });
   }

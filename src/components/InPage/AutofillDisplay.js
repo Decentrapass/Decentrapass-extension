@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import AutofillItem from "./AutofillItem";
 
 export default class AutofillDisplay extends Component {
   constructor(props) {
@@ -48,7 +49,7 @@ export default class AutofillDisplay extends Component {
         id="decentrapass_inpage_autofill"
       >
         {this.props.items.map((item, key) => {
-          return <div className="autofill_item">{item.title}</div>;
+          return <AutofillItem key={key} item={item} e={this.props.e} />;
         })}
       </div>
     );

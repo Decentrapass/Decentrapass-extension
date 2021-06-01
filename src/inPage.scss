@@ -15,9 +15,10 @@ $gray-800: #1f2937;
     align-items: center;
     justify-content: center;
     cursor: pointer;
+    padding: 8px;
 
     & img {
-      width: 100%;
+      width: 90%;
       height: auto;
       pointer-events: none;
     }

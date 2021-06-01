@@ -11,8 +11,6 @@ export default class LogoButton extends Component {
   }
 
   calcHeight(e) {
-    console.log(e);
-
     let rect = e.target.getBoundingClientRect();
     let rectTop = rect.top;
     let rectLeft = rect.left;
@@ -20,16 +18,15 @@ export default class LogoButton extends Component {
     let scrollLeft = window.pageXOffset || document.documentElement.scrollLeft;
     let scrollTop = window.pageYOffset || document.documentElement.scrollTop;
 
-    let height = rect.height * 0.5;
-    let properHeight = height > 25 ? height : 25;
-    let width = rect.width - properHeight;
+    let height = rect.height * 0.75;
+    let width = rect.width - height;
 
-    let mt = (rect.height - properHeight) / 2;
+    let mt = (rect.height - height) / 2;
 
     this.setState({
-      properHeight,
+      height,
       top: rectTop + scrollTop + mt,
-      left: rectLeft + scrollLeft + width - properHeight / 2,
+      left: rectLeft + scrollLeft + width - height / 2,
       e,
     });
   }
@@ -48,8 +45,8 @@ export default class LogoButton extends Component {
     return (
       <button
         style={{
-          width: this.state.properHeight,
-          height: this.state.properHeight,
+          width: this.state.height,
+          height: this.state.height,
           top: this.state.top,
           left: this.state.left,
         }}

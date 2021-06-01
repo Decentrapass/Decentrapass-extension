@@ -23,6 +23,13 @@ const possibleTypes = [
   "tel",
 ];
 
+const isInputInForm = (e) => {
+  for (const form of document.getElementsByTagName("form"))
+    if (form.contains(e.target)) return true;
+
+  return false;
+};
+
 export default class FormDisplay extends Component {
   constructor(props) {
     super(props);
@@ -68,6 +75,7 @@ export default class FormDisplay extends Component {
           // Logged in for user chosen minutes
           if (diff >= 0 && diff < items.rememberMins) {
             this.saveItems(items.password, items.account);
+            this.setState({ loggedIn: true });
           }
         }
       }.bind(this)
@@ -95,7 +103,9 @@ export default class FormDisplay extends Component {
   handleFocus(e) {
     if (
       e.target.tagName.toLowerCase() === "input" &&
-      possibleTypes.includes(e.target.type.toLowerCase())
+      possibleTypes.includes(e.target.type.toLowerCase()) &&
+      isInputInForm(e) &&
+      this.state.loggedIn
     ) {
       this.setState({
         iconShown: true,
